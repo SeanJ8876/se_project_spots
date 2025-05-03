@@ -6,14 +6,14 @@ An Image Sharing Site
 
 Tooo - Describe the project and its functionality
 
-## Tech Stack 
+## Tech Stack
 
 -HTML
 -CSS
--Responsive Design 
+-Responsive Design
 
- ## [Deployment](https://seanj8876.github.io/se_project_spots/)
+## Deployment
 
-This webpage us depolyed to GitHub Pages 
+This webpage us depolyed to GitHub Pages
 
--Deployment Link: 
+-[Deployment Link](https://seanj8876.github.io/se_project_spots/):
