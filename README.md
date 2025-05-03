@@ -12,7 +12,7 @@ Tooo - Describe the project and its functionality
 -CSS
 -Responsive Design 
 
-## Deployment
+ ## [Deployment](https://seanj8876.github.io/se_project_spots/)
 
 This webpage us depolyed to GitHub Pages 
 
