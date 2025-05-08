@@ -71,7 +71,6 @@
   border-radius: 8px;
   padding: 18px 32px 18px 32px;
   gap: 8px;
-  width: 149px;
   height: 52px;
   background-color: rgba(33, 33, 33, 1);
   align-self: flex-end;
@@ -79,6 +78,7 @@
   font-size: 16px;
   line-height: 100%;
   font-weight: 500;
+  letter-spacing: 0%;
   display: flex;
   justify-content: center;
   border: 0;
@@ -87,6 +87,7 @@
 .profile__new-post-icon {
   padding-right: 4px;
   gap: 8px;
+  width: 12px;
 }
 
 .profile__add-btn:hover {
