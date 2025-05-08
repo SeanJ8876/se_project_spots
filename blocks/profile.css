@@ -41,24 +41,29 @@
   -webkit-box-orient: vertical;
   max-width: 420px;
   font-size: 16px;
+  font-weight: 500;
   line-height: 100%;
   color: #212121;
-  opacity: 0.6;
+  opacity: 0.7;
 }
 
 .profile__edit-btn {
   margin-top: auto;
   background: transparent;
   border: none;
-  align-self: center;
   cursor: pointer;
   font-size: 16px;
   line-height: 100%;
   color: #212121;
-  opacity: 0.6;
+  opacity: 0.7;
   font-weight: 500;
   display: flex;
-  align-items: center;
+  padding: 0;
+  gap: 8px;
+}
+
+.profile__edit-btn:hover {
+  opacity: 0.8;
 }
 
 .profile__add-btn {
@@ -66,8 +71,8 @@
   border-radius: 8px;
   padding: 18px 32px 18px 32px;
   gap: 8px;
-  width: 157px 73px;
-  height: 52px 16px;
+  width: 149px;
+  height: 52px;
   background-color: rgba(33, 33, 33, 1);
   align-self: flex-end;
   color: rgba(252, 245, 229, 1);
@@ -76,14 +81,16 @@
   font-weight: 500;
   display: flex;
   justify-content: center;
+  border: 0;
 }
 
 .profile__new-post-icon {
   padding-right: 4px;
+  gap: 8px;
 }
 
 .profile__add-btn:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 627px) {
@@ -93,8 +100,6 @@
     align-items: center;
     text-align: center;
     padding-top: 20px;
-    display: flex;
-    flex-direction: column;
   }
 
   .profile__avatar {

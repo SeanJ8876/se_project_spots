@@ -4,19 +4,21 @@
   object-fit: cover;
   display: block;
   border-radius: 8px;
+  margin-bottom: 12px;
 }
 
 .card__content {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  
 }
 
 .card__title {
   font-family: Poppins, Arial, Helvetica, sans-serif;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
-  line-height: 100%;
+  line-height: 120%;
   letter-spacing: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -42,5 +44,11 @@
 @media screen and (max-width: 627px) {
   .card__image {
     height: 288px;
+
+  }
+  .card__title {
+    font-size: 16px;
+    line-height: 100%;
   }
 }
+
