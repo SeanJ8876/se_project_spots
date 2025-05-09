@@ -91,7 +91,7 @@
 }
 
 .profile__add-btn:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 @media screen and (max-width: 627px) {
@@ -122,6 +122,7 @@
 
   .profile__column {
     margin: 0 0 20px;
+    align-items: center;
   }
 
   .profile__add-btn {
