@@ -60,10 +60,11 @@
   display: flex;
   padding: 0;
   gap: 8px;
+  cursor: pointer;
 }
 
 .profile__edit-btn:hover {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .profile__add-btn {
@@ -82,6 +83,7 @@
   display: flex;
   justify-content: center;
   border: 0;
+  cursor: pointer;
 }
 
 .profile__new-post-icon {
@@ -91,7 +93,7 @@
 }
 
 .profile__add-btn:hover {
-  opacity: 1;
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 627px) {
