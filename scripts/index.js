@@ -13,6 +13,7 @@ const editnewPostBtn = document.querySelector(".profile__new-post-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newPostForm = document.querySelector(".modal__form");
+const newPostNameInput = newPostModal.querySelector("#card-image-input");
 const newPostTitleInput = newPostModal.querySelector("#newPost-input");
 
 const newPostDescriptionInput = newPostModal.querySelector(
@@ -22,9 +23,8 @@ const newPostDescriptionInput = newPostModal.querySelector(
 const profileNameEL = document.querySelector(".profile__name");
 const profileDescriptionEL = document.querySelector(".profile__description");
 const newPostlinkEL = document.querySelector(".profile__new-post-link");
-const newPostDescriptionEL = document.querySelector(
-  "#newPost-description-input"
-);
+const newPostBtn = document.querySelector(".profile__add-btn");
+const newPostDescriptionEL = document.querySelector("#card-description-input");
 
 editProfileCloseBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEL.textContent;
@@ -33,6 +33,8 @@ editProfileCloseBtn.addEventListener("click", function () {
 });
 
 editProfileBtn.addEventListener("click", function () {
+  editProfileNameInput.value = profileNameEL.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEL.textContent;
   editProfileModal.classList.add("modal_is-opened");
 });
 
@@ -53,12 +55,10 @@ function handleEditProfileFormSubmit(evt) {
   editProfileModal.classList.remove("modal_is-opened");
 }
 
-editProfileForm.addEventListener("submit", handleEditProfileSubmit);
+editProfileForm.addEventListener("submit", handleEditProfileFormSubmit);
 newPostForm.addEventListener("submit", handleNewPostSubmit);
 
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
-  newPostlinkEL.textContent = newPostTitleInput.value;
-  newPostDescriptionEL.textContent = newPostDescriptionInput.value;
   newPostModal.classList.remove("modal_is-opened");
 }
