@@ -1,7 +1,7 @@
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const editProfileCloseBtn = document.querySelector(".modal__close-btn");
-const editProfileForm = document.querySelector(".modal__form");
+const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
+const editProfileForm = editProfileModal.querySelector(".modal__form");
 const editProfileNameInput = editProfileModal.querySelector(
   "#profile-name-input"
 );
@@ -9,26 +9,19 @@ const editProfileDescriptionInput = editProfileModal.querySelector(
   "#profile-description-input"
 );
 
-const editnewPostBtn = document.querySelector(".profile__new-post-btn");
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
-const newPostForm = document.querySelector(".modal__form");
-const newPostNameInput = newPostModal.querySelector("#card-image-input");
-const newPostTitleInput = newPostModal.querySelector("#newPost-input");
-
-const newPostDescriptionInput = newPostModal.querySelector(
-  "#newPost-name-input"
-);
+const newPostForm = newPostModal.querySelector(".modal__form");
+const newPostLinkInput = newPostModal.querySelector("#newPostCard-Link-Input");
+const newPostTitleInput = newPostModal.querySelector("#card-description-input");
 
 const profileNameEL = document.querySelector(".profile__name");
-const profileDescriptionEL = document.querySelector(".profile__description");
-const newPostlinkEL = document.querySelector(".profile__new-post-link");
 const newPostBtn = document.querySelector(".profile__add-btn");
 const newPostDescriptionEL = document.querySelector("#card-description-input");
 
 editProfileCloseBtn.addEventListener("click", function () {
-  editProfileNameInput.value = profileNameEL.textContent;
-  editProfileDescriptionInput.value = profileDescriptionEL.textContent;
+  // editProfileNameInput.value = profileNameEL.textContent;
+  // editProfileDescriptionInput.value = profileDescriptionEL.textContent:
   editProfileModal.classList.remove("modal_is-opened");
 });
 
@@ -39,8 +32,8 @@ editProfileBtn.addEventListener("click", function () {
 });
 
 newPostCloseBtn.addEventListener("click", function () {
-  newPostNameInput.value = newPostCloseBtn.textContent;
-  newPostDescriptionInput.value = newPostDescriptionEL.textContent;
+  // newPostLinkInput.value = newPostCloseBtn.textContent;
+  // newPostDescriptionInput.value = newPostDescriptionEL.textContent;
   newPostModal.classList.remove("modal_is-opened");
 });
 
