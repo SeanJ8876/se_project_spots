@@ -60,9 +60,9 @@ function getCardElement(data) {
   // });
 
   cardImageEl.addEventListener("click", function () {
-    previewImageEl.src = cardImageEl.src;
-    previewImageEl.alt = cardImageEl.alt;
-    previewTitleEl.textContent = cardTitleEl.textContent;
+    previewImageEl.src = data.link;
+    previewImageEl.alt = data.name;
+    previewTitleEl.textContent = data.name;
     // previewModal.classList.add("modal_is-opened");
     openModal(previewModal);
   });
@@ -94,7 +94,7 @@ const newPostTitleInput = newPostModal.querySelector("#card-description-input");
 const previewModal = document.querySelector("#preview-modal");
 const previewModalCloseBtn = previewModal.querySelector(".modal__close-btn");
 const previewImageEl = previewModal.querySelector(".modal__image");
-const previewTitleEl = previewModal.querySelector(".modal__title");
+const previewTitleEl = previewModal.querySelector(".modal__caption");
 function closeModal(modal) {
   modal.classList.remove("modal_is-opened");
 }
