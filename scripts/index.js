@@ -91,9 +91,10 @@ const newPostLinkInput = newPostModal.querySelector("#card-image-input");
 const newPostTitleInput = newPostModal.querySelector("#card-description-input");
 
 const previewModalEl = document.querySelector("#preview-modal");
-const previewImageEl = previewModal.querySelector(".modal__image");
-const previewCaptionEl = previewModal.querySelector(".modal__caption");
-const previewModalCloseBtnEl = previewModal.querySelector(".modal__close-btn");
+const previewImageEl = previewModalEl.querySelector(".modal__image");
+const previewCaptionEl = previewModalEl.querySelector(".modal__caption");
+const previewModalCloseBtnEl =
+  previewModalEl.querySelector(".modal__close-btn");
 
 const profileNameEL = document.querySelector(".profile__name");
 const profileDescriptionEl = document.querySelector(".profile__description");

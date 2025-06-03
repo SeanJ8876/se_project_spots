@@ -83,6 +83,12 @@
 .modal__close_type_preview {
   top: 0;
   right: -52.5px;
+  width: 23px;
+  height: 23px;
+  position: absolute;
+  background: transparent url(../images/close.svg) center no-repeat;
+  color: rgba(255, 255, 255, 1);
+  border: none;
 }
 
 .modal__close-btn:hover {
@@ -162,13 +168,27 @@
 .modal__image {
   max-width: 80vw;
   max-height: 80vh;
+  width: 100%;
   object-fit: contain;
   display: block;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .modal__caption {
   color: white;
+  width: 214px;
+  left: 0;
+  top: calc(100% + 10px);
+  border-radius: 8px;
+  padding: 8px 16px;
+  background-color: rgba(33, 33, 33, 1);
+  color: rgba(255, 255, 255, 1);
+  font-family: Poppins, Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 120%;
+  letter-spacing: 0%;
 }
 
 @media screen and (max-width: 480px) {
