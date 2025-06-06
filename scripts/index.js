@@ -79,7 +79,7 @@ function closeModal(modal) {
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
-const editProfileForm = editProfileModal.querySelector(".modal__form");
+const editProfileForm = document.forms["profile-form"];
 const editProfileNameInput = editProfileModal.querySelector(
   "#profile-name-input"
 );
@@ -89,7 +89,7 @@ const editProfileDescriptionInput = editProfileModal.querySelector(
 
 const newPostModal = document.querySelector("#new-post-modal");
 const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
-const newPostForm = newPostModal.querySelector(".modal__form");
+const newPostForm = document.forms["new-post-modal-form"];
 const newPostLinkInput = newPostModal.querySelector("#card-image-input");
 const newPostTitleInput = newPostModal.querySelector("#card-description-input");
 
@@ -153,9 +153,6 @@ function handleNewPostSubmit(evt) {
   const cardElement = getCardElement(inputValues);
   cardlist.prepend(cardElement);
   closeModal(newPostModal);
-}
-
-function closeModal(modal) {
-  modal.classList.remove("modal_is-opened");
+  newPostForm.reset();
 }
 // Close modal when clicking outside the modal content

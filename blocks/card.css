@@ -69,7 +69,7 @@
 }
 
 .card__like-btn_active {
-  background-image: url(../images/liked\ acive.svg);
+  background-image: url(../images/liked-active.svg);
   color: rgba(255, 101, 101, 1);
   opacity: 1;
 }
