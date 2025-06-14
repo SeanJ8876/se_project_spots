@@ -89,12 +89,21 @@
         <h2 class="modal__title">Edit profile</h2>
         <form class="modal__form" id="profile-form">
           <label for="profile-name-input" class="modal__label">
+            <textarea
+              id="profile-textarea"
+              name="description"
+              minlength="2"
+              maxlength="40"
+            ></textarea>
             Name
             <input
               id="profile-name-input"
               type="text"
               class="modal__input"
               placeholder="Type your name"
+              name="name"
+              minlength="2"
+              maxlength="40"
               required
             />
           </label>
@@ -108,6 +117,19 @@
               required
             />
           </label>
+          <label for="imageLink">Image Link:</label>
+          <input type="url" id="imageLink" name="imageLink" required />
+          <label for="caption">Caption:</label>
+          <input
+            type="text"
+            id="caption"
+            name="caption"
+            required
+            minlength="2"
+            maxlength="30"
+          />
+
+          <button type="submit">Submit</button>
           <button type="Submit" class="modal__submit-btn">Save</button>
         </form>
       </div>
