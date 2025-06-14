@@ -89,12 +89,6 @@
         <h2 class="modal__title">Edit profile</h2>
         <form class="modal__form" id="profile-form">
           <label for="profile-name-input" class="modal__label">
-            <textarea
-              id="profile-textarea"
-              name="description"
-              minlength="2"
-              maxlength="40"
-            ></textarea>
             Name
             <input
               id="profile-name-input"
@@ -114,6 +108,9 @@
               type="text"
               class="modal__input"
               placeholder="Describe yourself"
+              name="description"
+              minlength="2"
+              maxlength="200"
               required
             />
           </label>
