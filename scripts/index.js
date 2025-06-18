@@ -28,7 +28,6 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
-
 const cardTemplate = document.querySelector("#card-template");
 const cardElement = cardTemplate.querySelector(".card"); // misssing delcration
 const cardlist = document.querySelector(".cards__list"); //.append(cardElement);
@@ -92,7 +91,7 @@ const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newPostForm = document.forms["new-post-modal-form"];
 const newPostLinkInput = newPostModal.querySelector("#card-image-input");
 const newPostTitleInput = newPostModal.querySelector("#card-description-input");
-
+const newPostSubmitBtn = newPostModal.querySelector(".modal__submit-btn");
 const previewModalEl = document.querySelector("#preview-modal");
 const previewImageEl = previewModalEl.querySelector(".modal__image");
 const previewCaptionEl = previewModalEl.querySelector(".modal__caption");
@@ -121,6 +120,10 @@ editProfileBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEL.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   // editProfileModal.classList.add("modal_is-opened");
+  resetValidation(
+    [editProfileNameInput, editProfileDescriptionInput],
+    editProfileForm
+  );
   openModal(editProfileModal);
 });
 
@@ -131,6 +134,7 @@ newPostCloseBtn.addEventListener("click", function () {
 
 newPostBtn.addEventListener("click", function () {
   // newPostModal.classList.add("modal_is-opened");
+  resetValidation([newPostLinkInput, newPostTitleInput], newPostForm);
   openModal(newPostModal);
 });
 
@@ -152,7 +156,57 @@ function handleNewPostSubmit(evt) {
   };
   const cardElement = getCardElement(inputValues);
   cardlist.prepend(cardElement);
+  evt.target.reset();
+  disableButton(newPostSubmitBtn, settings);
   closeModal(newPostModal);
   newPostForm.reset();
 }
-// Close modal when clicking outside the modal content
+const showInputError = () => {};
+
+const hideInputError = () => {};
+
+const checkInputValidity = () => {};
+const hasInvalidInput = () => {};
+const toggleButtonState = () => {};
+const disableButton = (buttonElement) => {
+  buttonElement.disabled = true;
+  buttonElement.classList.add("modal__submit-btn_disabled");
+};
+const resetValidation = (inputList, formElement) => {
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+};
+const setEventListeners = (formElement, config) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(config.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+
+  toggleButtonState(inputList, buttonElement, config);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+const enableValidation = (config) => {
+  const formList = document.querySelectorAll(config.formSelector);
+  formList.forEach((formElment) => {
+    setEventListeners(formElment, config);
+  });
+};
+
+const settings = {
+  showInputError,
+  hideInputError,
+  checkInputValidity,
+  hasInvalidInput,
+  toggleButtonState,
+  disableButton,
+  resetValidation,
+  setEventListeners,
+  enableValidation,
+};

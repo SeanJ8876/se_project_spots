@@ -66,8 +66,13 @@
               type="url"
               class="modal__input"
               placeholder="Place a link to the picture"
+              minlength="2"
+              maxlength="30"
               required
             />
+            <span id="card-image-input-error" class="modal__error"
+              >Please enter a URL.</span
+            >
           </label>
           <label for="card-description-input" class="modal__label">
             Caption
@@ -76,8 +81,13 @@
               type="text"
               class="modal__input"
               placeholder="Type your caption"
+              minlength="2"
+              maxlength="30"
               required
             />
+            <span id="card-description-input-error" class="modal__error"
+              >Please fill out this field.</span
+            >
           </label>
           <button type="Submit" class="modal__submit-btn">Save</button>
         </form>
@@ -95,11 +105,13 @@
               type="text"
               class="modal__input"
               placeholder="Type your name"
-              name="name"
               minlength="2"
               maxlength="40"
               required
             />
+            <span id="profile-name-input-error" class="modal__error"
+              >Please fill out this field.</span
+            >
           </label>
           <label for="profile-description-input" class="modal__label">
             Description
@@ -108,25 +120,15 @@
               type="text"
               class="modal__input"
               placeholder="Describe yourself"
-              name="description"
               minlength="2"
               maxlength="200"
               required
             />
+            <span id="profile-description-input-error" class="modal__error">
+              Please lengthen this text to 2 characters or more (you are
+              currently using 1 character).</span
+            >
           </label>
-          <label for="imageLink">Image Link:</label>
-          <input type="url" id="imageLink" name="imageLink" required />
-          <label for="caption">Caption:</label>
-          <input
-            type="text"
-            id="caption"
-            name="caption"
-            required
-            minlength="2"
-            maxlength="30"
-          />
-
-          <button type="submit">Submit</button>
           <button type="Submit" class="modal__submit-btn">Save</button>
         </form>
       </div>
@@ -139,7 +141,7 @@
         <p class="modal__caption"></p>
       </div>
     </div>
-
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/validation.js"></script>
   </body>
 </html>
