@@ -30,7 +30,7 @@ const initialCards = [
 ];
 const cardTemplate = document.querySelector("#card-template");
 const cardElement = cardTemplate.querySelector(".card"); // misssing delcration
-const cardlist = document.querySelector(".cards__list"); //.append(cardElement);
+const cardlist = document.querySelector("cardList"); //.append(cardElement);
 
 initialCards.forEach(function (item) {
   const cardElement = getCardElement(item);
@@ -69,10 +69,32 @@ function getCardElement(data) {
 }
 
 function openModal(modal) {
-  modal.classList.add("modal_is-opened");
+  modal.classList.add("popup_opened");
+
+  document.addEventListener("keydown", handleEscapeClose);
+  modal.addEventListener("click", handleOverlayClose);
 }
+
 function closeModal(modal) {
-  modal.classList.remove("modal_is-opened");
+  modal.classList.remove("popup_opened");
+
+  document.removeEventListener("keydown", handleEscapeClose);
+  modal.removeEventListener("click", handleOverlayClose);
+}
+
+function handleEscapeClose(evt) {
+  if (evt.key === "Escape") {
+    const openModal = document.querySelector(".popup_opened");
+    if (openModal) {
+      closeModal(openModal);
+    }
+  }
+}
+
+function handleOverlayClose(evt) {
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.target);
+  }
 }
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
@@ -103,11 +125,12 @@ const profileDescriptionEl = document.querySelector(".profile__description");
 const newPostBtn = document.querySelector(".profile__add-btn");
 
 editProfileCloseBtn.addEventListener("click", function () {
-  editProfileNameInput.value = profileNameEL.textContent;
-  // // editProfileDescriptionInput.value = profileDescriptionEL.textContent:
-  // editProfileModal.classList.remove("modal_is-opened");
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileDescription.textContent;
   closeModal(editProfileModal);
+  resetValidation(editProfileModal);
 });
+
 const previewModal = document.querySelector("#preview-modal");
 const previewModalCloseBtn = previewModal.querySelector(
   ".modal__close_type_preview"

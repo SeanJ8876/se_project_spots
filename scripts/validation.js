@@ -1,5 +1,5 @@
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorMessageID = (inputElement.id = +"-error");
+  const errorMessageID = (inputElement.id = +"#…-error");
   const errorMessageElement = formElement.querySelector(
     `#${inputElement.id}-error`
   );
@@ -17,7 +17,7 @@ const hideInputError = (formElement, inputElement) => {
 
 const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, errorMessage);
   } else {
     hideInputError(formElement, inputElement);
   }
