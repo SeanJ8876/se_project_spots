@@ -30,7 +30,7 @@ const initialCards = [
 ];
 const cardTemplate = document.querySelector("#card-template");
 const cardElement = cardTemplate.querySelector(".card"); // misssing delcration
-const cardlist = document.querySelector("cardList"); //.append(cardElement);
+const cardlist = document.querySelector(".cards__list"); //.append(cardElement);
 
 initialCards.forEach(function (item) {
   const cardElement = getCardElement(item);
@@ -69,14 +69,14 @@ function getCardElement(data) {
 }
 
 function openModal(modal) {
-  modal.classList.add("popup_opened");
+  modal.classList.add("modal_is-opened");
 
   document.addEventListener("keydown", handleEscapeClose);
   modal.addEventListener("click", handleOverlayClose);
 }
 
 function closeModal(modal) {
-  modal.classList.remove("popup_opened");
+  modal.classList.remove("modal_is-opened");
 
   document.removeEventListener("keydown", handleEscapeClose);
   modal.removeEventListener("click", handleOverlayClose);
@@ -84,7 +84,7 @@ function closeModal(modal) {
 
 function handleEscapeClose(evt) {
   if (evt.key === "Escape") {
-    const openModal = document.querySelector(".popup_opened");
+    const openModal = document.querySelector(".modal_is-opened");
     if (openModal) {
       closeModal(openModal);
     }
@@ -125,18 +125,21 @@ const profileDescriptionEl = document.querySelector(".profile__description");
 const newPostBtn = document.querySelector(".profile__add-btn");
 
 editProfileCloseBtn.addEventListener("click", function () {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileDescription.textContent;
+  editProfileNameInput.value = profileNameEL.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   closeModal(editProfileModal);
-  resetValidation(editProfileModal);
+  resetValidation(
+    [editProfileNameInput, editProfileDescriptionInput],
+    editProfileForm
+  );
 });
 
-const previewModal = document.querySelector("#preview-modal");
-const previewModalCloseBtn = previewModal.querySelector(
-  ".modal__close_type_preview"
+const previewModalCloseBtn = previewModalEl.querySelector(
+  ".modal__close-btn_type_preview"
 );
 previewModalCloseBtn.addEventListener("click", function () {
-  closeModal(previewModal);
+  previewModalEl.classList.remove("modal_is-opened");
+  closeModal(previewModalEl);
 });
 
 editProfileBtn.addEventListener("click", function () {
@@ -184,13 +187,13 @@ function handleNewPostSubmit(evt) {
   closeModal(newPostModal);
   newPostForm.reset();
 }
-const showInputError = () => {};
+const showInputError = (config) => {};
 
-const hideInputError = () => {};
+const hideInputError = (config) => {};
 
-const checkInputValidity = () => {};
-const hasInvalidInput = () => {};
-const toggleButtonState = () => {};
+const checkInputValidity = (config) => {};
+const hasInvalidInput = (config) => {};
+const toggleButtonState = (config) => {};
 const disableButton = (buttonElement) => {
   buttonElement.disabled = true;
   buttonElement.classList.add("modal__submit-btn_disabled");
