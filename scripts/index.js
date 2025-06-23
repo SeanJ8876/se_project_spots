@@ -1,7 +1,7 @@
 const initialCards = [
   {
-    name: " Golden Gate Bridge",
-    link: " https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
   },
   {
     name: "Val Thorens",
@@ -29,7 +29,6 @@ const initialCards = [
   },
 ];
 const cardTemplate = document.querySelector("#card-template");
-const cardElement = cardTemplate.querySelector(".card"); // misssing delcration
 const cardlist = document.querySelector(".cards__list"); //.append(cardElement);
 
 initialCards.forEach(function (item) {
@@ -62,7 +61,7 @@ function getCardElement(data) {
     previewImageEl.src = data.link;
     previewImageEl.alt = data.name;
     previewCaptionEl.textContent = data.name;
-    openModal(previewModal);
+    openModal(previewModalEl);
   });
 
   return cardElement;
@@ -88,12 +87,6 @@ function handleEscapeClose(evt) {
     if (openModal) {
       closeModal(openModal);
     }
-  }
-}
-
-function handleOverlayClose(evt) {
-  if (evt.target === evt.currentTarget) {
-    closeModal(evt.target);
   }
 }
 
@@ -125,20 +118,26 @@ const profileDescriptionEl = document.querySelector(".profile__description");
 const newPostBtn = document.querySelector(".profile__add-btn");
 
 editProfileCloseBtn.addEventListener("click", function () {
+  resetEditProfileForm();
   editProfileNameInput.value = profileNameEL.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   closeModal(editProfileModal);
-  resetValidation(
-    [editProfileNameInput, editProfileDescriptionInput],
-    editProfileForm
-  );
+  resetValidation(editProfileForm, settings);
 });
+
+function handleOverlayClose(evt) {
+  if (evt.target === evt.currentTarget) {
+    if (evt.target === editProfileModal) {
+      resetEditProfileForm();
+    }
+    closeModal(evt.target);
+  }
+}
 
 const previewModalCloseBtn = previewModalEl.querySelector(
   ".modal__close-btn_type_preview"
 );
 previewModalCloseBtn.addEventListener("click", function () {
-  previewModalEl.classList.remove("modal_is-opened");
   closeModal(previewModalEl);
 });
 
@@ -146,10 +145,7 @@ editProfileBtn.addEventListener("click", function () {
   editProfileNameInput.value = profileNameEL.textContent;
   editProfileDescriptionInput.value = profileDescriptionEl.textContent;
   // editProfileModal.classList.add("modal_is-opened");
-  resetValidation(
-    [editProfileNameInput, editProfileDescriptionInput],
-    editProfileForm
-  );
+  resetValidation(editProfileForm, settings);
   openModal(editProfileModal);
 });
 
@@ -160,7 +156,7 @@ newPostCloseBtn.addEventListener("click", function () {
 
 newPostBtn.addEventListener("click", function () {
   // newPostModal.classList.add("modal_is-opened");
-  resetValidation([newPostLinkInput, newPostTitleInput], newPostForm);
+  resetValidation(newPostForm, settings);
   openModal(newPostModal);
 });
 
@@ -185,54 +181,108 @@ function handleNewPostSubmit(evt) {
   evt.target.reset();
   disableButton(newPostSubmitBtn, settings);
   closeModal(newPostModal);
-  newPostForm.reset();
 }
-const showInputError = (config) => {};
 
-const hideInputError = (config) => {};
-
-const checkInputValidity = (config) => {};
-const hasInvalidInput = (config) => {};
-const toggleButtonState = (config) => {};
-const disableButton = (buttonElement) => {
-  buttonElement.disabled = true;
-  buttonElement.classList.add("modal__submit-btn_disabled");
+const showInputError = (formElement, inputElement, errorMessage, settings) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.add(settings.inputErrorClass);
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add(settings.errorClass);
 };
-const resetValidation = (inputList, formElement) => {
-  inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
+
+const hideInputError = (formElement, inputElement, settings) => {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
+  inputElement.classList.remove(settings.inputErrorClass);
+  errorElement.textContent = "";
+  errorElement.classList.remove(settings.errorClass);
+};
+
+const checkInputValidity = (formElement, inputElement, settings) => {
+  if (!inputElement.validity.valid) {
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      settings
+    );
+  } else {
+    hideInputError(formElement, inputElement, settings);
+  }
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
   });
 };
-const setEventListeners = (formElement, config) => {
-  const inputList = Array.from(
-    formElement.querySelectorAll(config.inputSelector)
-  );
-  const buttonElement = formElement.querySelector(config.submitButtonSelector);
+const toggleButtonState = (inputList, buttonElement, settings) => {
+  if (hasInvalidInput(inputList)) {
+    disableButton(buttonElement, settings);
+  } else {
+    buttonElement.classList.remove(settings.inactiveButtonClass);
+    buttonElement.disabled = false;
+  }
+};
+const disableButton = (buttonElement, settings) => {
+  buttonElement.classList.add(settings.inactiveButtonClass);
+  buttonElement.disabled = true;
+};
 
-  toggleButtonState(inputList, buttonElement, config);
+const resetValidation = (formElement, settings) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(settings.inputSelector)
+  );
 
   inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+    hideInputError(formElement, inputElement, settings);
+  });
+
+  const buttonElement = formElement.querySelector(
+    settings.submitButtonSelector
+  );
+  toggleButtonState(inputList, buttonElement, settings);
+};
+
+function resetEditProfileForm() {
+  editProfileNameInput.value = profileNameEL.textContent;
+  editProfileDescriptionInput.value = profileDescriptionEl.textContent;
+  resetValidation(editProfileForm, settings);
+}
+
+const setEventListeners = (formElement, settings) => {
+  const inputList = Array.from(
+    formElement.querySelectorAll(settings.inputSelector)
+  );
+  const buttonElement = formElement.querySelector(
+    settings.submitButtonSelector
+  );
+
+  disableButton(buttonElement, settings);
+
+  toggleButtonState(inputList, buttonElement, settings);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", () => {
+      checkInputValidity(formElement, inputElement, settings);
+      toggleButtonState(inputList, buttonElement, settings);
     });
   });
 };
-const enableValidation = (config) => {
-  const formList = document.querySelectorAll(config.formSelector);
-  formList.forEach((formElment) => {
-    setEventListeners(formElment, config);
+
+const enableValidation = (settings) => {
+  const formList = document.querySelectorAll(settings.formSelector);
+  formList.forEach((formElement) => {
+    setEventListeners(formElement, settings);
   });
 };
 
 const settings = {
-  showInputError,
-  hideInputError,
-  checkInputValidity,
-  hasInvalidInput,
-  toggleButtonState,
-  disableButton,
-  resetValidation,
-  setEventListeners,
-  enableValidation,
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit-btn",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
 };
+
+enableValidation(settings);
