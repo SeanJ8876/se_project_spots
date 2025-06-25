@@ -56,7 +56,7 @@
     </div>
     <div class="modal" id="new-post-modal">
       <div class="modal__container">
-        <button type="button" class="modal__close-btn"></button>
+        <button type="button" class="modal__close modal__close_type_preview"></button>
         <h2 class="modal__title">New post</h2>
         <form class="modal__form" novalidate id="new-post-modal-form">
           <label for="card-image-input" class="modal__label">
@@ -71,7 +71,7 @@
               required
             />
             <span id="card-image-input-error" class="modal__error"
-              >Please enter a URL.</span
+              ></span
             >
           </label>
           <label for="card-description-input" class="modal__label">
@@ -86,7 +86,7 @@
               required
             />
             <span id="card-description-input-error" class="modal__error"
-              >Please fill out this field.</span
+              ></span
             >
           </label>
           <button type="Submit" class="modal__submit-btn">Save</button>
@@ -110,7 +110,7 @@
               required
             />
             <span id="profile-name-input-error" class="modal__error"
-              >Please fill out this field.</span
+              ></span
             >
           </label>
           <label for="profile-description-input" class="modal__label">
@@ -124,9 +124,7 @@
               maxlength="200"
               required
             />
-            <span id="profile-description-input-error" class="modal__error">
-              Please lengthen this text to 2 characters or more (you are
-              currently using 1 character).</span
+            <span id="profile-description-input-error" class="modal__error"></span
             >
           </label>
           <button type="Submit" class="modal__submit-btn">Save</button>
