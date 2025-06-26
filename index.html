@@ -56,7 +56,10 @@
     </div>
     <div class="modal" id="new-post-modal">
       <div class="modal__container">
-        <button type="button" class="modal__close modal__close_type_preview"></button>
+        <button
+          type="button"
+          class="modal__close modal__close_type_preview"
+        ></button>
         <h2 class="modal__title">New post</h2>
         <form class="modal__form" novalidate id="new-post-modal-form">
           <label for="card-image-input" class="modal__label">
@@ -70,9 +73,7 @@
               maxlength="200"
               required
             />
-            <span id="card-image-input-error" class="modal__error"
-              ></span
-            >
+            <span id="card-image-input-error" class="modal__error"></span>
           </label>
           <label for="card-description-input" class="modal__label">
             Caption
@@ -85,9 +86,7 @@
               maxlength="30"
               required
             />
-            <span id="card-description-input-error" class="modal__error"
-              ></span
-            >
+            <span id="card-description-input-error" class="modal__error"></span>
           </label>
           <button type="Submit" class="modal__submit-btn">Save</button>
         </form>
@@ -109,9 +108,7 @@
               maxlength="40"
               required
             />
-            <span id="profile-name-input-error" class="modal__error"
-              ></span
-            >
+            <span id="profile-name-input-error" class="modal__error"></span>
           </label>
           <label for="profile-description-input" class="modal__label">
             Description
@@ -124,8 +121,10 @@
               maxlength="200"
               required
             />
-            <span id="profile-description-input-error" class="modal__error"></span
-            >
+            <span
+              id="profile-description-input-error"
+              class="modal__error"
+            ></span>
           </label>
           <button type="Submit" class="modal__submit-btn">Save</button>
         </form>
@@ -134,7 +133,10 @@
 
     <div class="modal modal_type_preview" id="preview-modal">
       <div class="modal__image-container">
-        <button type="button" class="modal__close-btn_type_preview"></button>
+        <button
+          type="button"
+          class="modal__close-btn modal__close-btn_type_preview"
+        ></button>
         <img src="#" alt="" class="modal__image" />
         <p class="modal__caption"></p>
       </div>

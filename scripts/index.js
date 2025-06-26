@@ -155,11 +155,14 @@ previewModalCloseBtn.addEventListener("click", function () {
 
 function resetValidation(form, settings) {
   const errorElements = form.querySelectorAll(settings.errorClass);
+  console.log(errorElements);
   errorElements.forEach((el) => el.remove());
 
-  const inputs = form.querySelectorAll("input, select, textarea");
+  const inputs = Array.from(form.querySelectorAll("input, select, textarea,span"));
+  console.log(inputs); console.log(settings);
   inputs.forEach((input) => {
-    input.classList.remove(settings.inputErrorClass.replace(".", ""));
+    input.classList.remove(settings.errorClass);
+    input.classList.remove(settings.inputErrorClass);
   });
 
   if (settings && settings.validationErrors) {
@@ -181,7 +184,6 @@ const openNewPostModal = () => {
 newPostBtn.addEventListener("click", function () {
   openNewPostModal();
 });
-
 
 function handleEditProfileFormSubmit(evt) {
   evt.preventDefault();
