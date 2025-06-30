@@ -1,4 +1,4 @@
-import { resetValidation, settings } from "./validation.js";
+import { resetValidation, settings, disableButton } from "./validation.js";
 
 const initialCards = [
   {
@@ -30,6 +30,8 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/6-photo-by-moritz-feldmann-from-pexels.jpg",
   },
 ];
+
+
 const cardTemplate = document.querySelector("#card-template");
 const cardlist = document.querySelector(".cards__list"); //.append(cardElement);
 
@@ -125,7 +127,7 @@ function handleOverlayClose(evt) {
 }
 
 editProfileBtn.addEventListener("click", function () {
-  const inputList = Array.from(editProfileForm.querySelectorAll("input")); // or however you get your inputs
+  handleOpenEditProfileModal(editProfileForm, settings);
   resetValidation(editProfileForm, settings);
   openEditProfileModal();
 });
@@ -144,8 +146,8 @@ newPostModal.addEventListener("click", function (e) {
 });
 
 const openNewPostModal = () => {
-  newPostModal.classList.add("modal_is-opened");
   resetValidation(newPostSubmitBtn, settings);
+  openModal(newPostModal);
 };
 
 newPostBtn.addEventListener("click", function () {
@@ -175,6 +177,7 @@ function handleNewPostSubmit(evt) {
 
   const cardElement = getCardElement(inputValues);
   cardlist.prepend(cardElement);
+  disableButton(evt.submitter, settings);
   evt.target.reset();
   resetValidation(newPostSubmitBtn, settings);
   closeModal(newPostModal);

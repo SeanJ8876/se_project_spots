@@ -219,6 +219,7 @@
   display: block;
   border-radius: 8px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .modal__caption {

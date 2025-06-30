@@ -110,4 +110,4 @@ const validation = {
 
 enableValidation(settings);
 
-export { resetValidation, settings };
+export { resetValidation, settings, disableButton};
