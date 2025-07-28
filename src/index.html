@@ -6,19 +6,22 @@
     <meta name="description" content="???" />
     <meta name="author" content="Sean Jackson" />
     <meta name="keywords" content="HTML, CSS, ???" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
     <title>Spots</title>
   </head>
   <body class="page">
     <div>
       <header class="header">
-        <img src="./images/Logo.svg" alt="Spot Logo" class="header__logo" />
+        <img
+          src="<%=require('./images/Logo.svg')%>"
+          alt="Spot Logo"
+          class="header__logo"
+        />
       </header>
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/avatar.jpg"
+            src="<%=require('./images/avatar.jpg')%>"
             alt="Bessie Coleman"
             class="profile__avatar"
           />
@@ -26,13 +29,18 @@
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
             <button type="button" class="profile__edit-btn">
-              <img src="./images/Pencil-Icon.svg" alt="Pencil-Icon" />Edit
-              Profile
+              <img
+                src="<%=require('./images/Pencil-Icon.svg')%>"
+                alt="Pencil-Icon"
+              />Edit Profile
             </button>
           </div>
           <button type="button" class="profile__add-btn">
-            <img class="profile__new-post-icon" src=./images/Plus-sign.svg
-            alt="Plus-Icon" />New Post
+            <img
+              class="profile__new-post-icon"
+              src="<%=require('./images/Plus-sign.svg')%>"
+              alt="Plus-Icon"
+            />New Post
           </button>
         </section>
         <section class="cards page__section">
@@ -141,7 +149,5 @@
         <p class="modal__caption"></p>
       </div>
     </div>
-    <script type="module" src="./scripts/index.js"></script>
-    <script type="module" src="./scripts/validation.js"></script>
   </body>
 </html>
