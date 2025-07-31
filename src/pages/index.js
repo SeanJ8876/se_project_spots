@@ -54,9 +54,9 @@ const cardlist = document.querySelector(".cards__list");
 
 const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
-const editProfileCloseBtn =
-  editProfileModal?.querySelector(".modal__close-btn");
+const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = document.forms["profile-form"];
+const avatarModalBtn = document.querySelector(".profile__avatar-btn");
 const editProfileNameInput = editProfileModal?.querySelector(
   "#profile-name-input"
 );
@@ -72,6 +72,12 @@ const newPostTitleInput = newPostModal?.querySelector(
   "#card-description-input"
 );
 const newPostSubmitBtn = newPostModal?.querySelector(".modal__submit-btn");
+
+const avatarModal = document.querySelector("#avatar-modal");
+const avatarCloseBtn = avatarModal?.querySelector(".modal__close-btn");
+const avatarForm = avatarModal?.querySelector(".modal__form"); // FIXED: correct selector
+const avatarSubmitBtn = avatarModal?.querySelector(".modal__submit-btn");
+const avatarInput = avatarModal?.querySelector("#profile-avatar-input");
 
 const previewModalEl = document.querySelector("#preview-modal");
 const previewImageEl = previewModalEl?.querySelector(".modal__image");
@@ -93,34 +99,29 @@ const api = new Api({
   },
 });
 
+// FIXED: Get both cards and user data in one call
 api
   .getAppInfo()
-  .then(([cards]) => {
+  .then(([cards, user]) => {
     console.log("Cards: ", cards);
+    console.log("User info:", user);
+
+    // Handle cards
     cards.forEach(function (item) {
       const cardElement = getCardElement(item);
       if (cardElement) {
         cardlist.append(cardElement);
       }
     });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
-api
-  .getUserInfo()
-  .then((user) => {
-    console.log("User info:", user);
-
-    profileName.textContent = user.name;
-    profileDescription.textContent = user.about;
-
+    // Handle user data - FIXED typo in profileDescriptionEl
+    profileNameEL.textContent = user.name;
+    profileDescriptionEl.textContent = user.about;
     profileAvatar.src = user.avatar;
     profileAvatar.alt = user.name;
   })
   .catch((err) => {
-    console.log("Error fetching user info:", err);
+    console.log("Error loading app data:", err);
   });
 
 // Helper function to safely call validation functions
@@ -270,6 +271,26 @@ function handleNewPostSubmit(evt) {
     return;
   }
 
+  if (avatarForm) {
+    avatarForm.addEventListener("submit", handleAvatarSubmit);
+  }
+
+  if (avatarCloseBtn) {
+    avatarCloseBtn.addEventListener("click", function () {
+      if (avatarModal) {
+        closeModal(avatarModal);
+      }
+    });
+  }
+
+  function handleAvatarSubmit(evt) {
+    evt.preventDefault();
+    api
+      .editAvatarInfo(avatarInput.value)
+      .then((data) => {})
+      .catch(console.error);
+  }
+
   const inputValues = {
     name: newPostTitleInput.value,
     link: newPostLinkInput.value,
@@ -321,6 +342,10 @@ if (editProfileForm) {
   editProfileForm.addEventListener("submit", handleEditProfileFormSubmit);
 }
 
+if (avatarForm) {
+  avatarForm.addEventListener("submit", handleAvatarSubmit);
+}
+
 if (newPostBtn) {
   newPostBtn.addEventListener("click", function () {
     if (newPostForm) {
@@ -335,6 +360,12 @@ if (newPostCloseBtn) {
     if (newPostModal) {
       closeModal(newPostModal);
     }
+  });
+}
+
+if (avatarModalBtn) {
+  avatarModalBtn.addEventListener("click", function () {
+    openModal(avatarModal);
   });
 }
 

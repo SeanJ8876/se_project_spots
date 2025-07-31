@@ -5,10 +5,10 @@
 }
 
 .profile__avatar {
-  margin-right: 20px;
   height: 190px;
   width: 190px;
   border-radius: 8px;
+  margin-right: 20px;
 }
 
 .profile__column {
@@ -105,10 +105,38 @@
     padding-top: 20px;
   }
 
+  .profile__avatar-btn {
+    visibility: visible;
+  }
+
+  .profile__avatar-container {
+    position: relative;
+    margin-right: 20px;
+  }
+
   .profile__avatar {
-    margin: 0 0 12px;
+    margin: 0 0 12px 0;
+    margin-left: 0;
     height: 80px;
     width: 80px;
+  }
+
+  .profile__avatar-btn {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    visibility: hidden;
+  }
+
+  .profile__avatar-container:hover .profile__avatar-btn {
+    visibility: visible;
+  }
+
+  .profile__avatar-btn::after {
+    content: "Edit Avatar";
   }
 
   .profile__add-btn {

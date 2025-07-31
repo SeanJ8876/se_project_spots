@@ -20,11 +20,20 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="<%=require('./images/avatar.jpg')%>"
-            alt="Bessie Coleman"
-            class="profile__avatar"
-          />
+          <div class="profile__avatar-container">
+            <button class="profile__avatar-btn">
+              <img
+                src="<%=require('./images/Pencil-Icon.svg')%>"
+                alt="Pencil icon"
+                class="profile__pencil-icon"
+              />
+            </button>
+            <img
+              src="<%=require('./images/avatar.jpg')%>"
+              alt="Bessie Coleman"
+              class="profile__avatar"
+            />
+          </div>
           <div class="profile__column">
             <h1 class="profile__name">Bessie Coleman</h1>
             <p class="profile__description">Civil Aviator</p>
@@ -139,7 +148,7 @@
       </div>
     </div>
 
-    <div class="modal modal_type_preview" id="preview-modal">
+    <div class="modal modal_type_preview" id="avatar-modal">
       <div class="modal__image-container">
         <button
           type="button"
@@ -149,5 +158,21 @@
         <p class="modal__caption"></p>
       </div>
     </div>
+    <h2 class="modal__title">Edit Avatar</h2>
+    <form class="modal__form" id="edit-avatar-form">
+      <label for="profile-avatar-input" class="modal__label">
+        Avatar
+        <input
+          id="profile-avatar-input"
+          name="avatar"
+          class="modal__input"
+          placeholder="Avatar goes here"
+          required
+        />
+        <span id="profile-avatar-input-error" class="modal__error"></span>
+      </label>
+      <button type="Submit" class="modal__submit-btn">Save</button>
+    </form>
+    <div></div>
   </body>
 </html>
