@@ -56,7 +56,7 @@ const editProfileBtn = document.querySelector(".profile__edit-btn");
 const editProfileModal = document.querySelector("#edit-profile-modal");
 const editProfileCloseBtn = editProfileModal.querySelector(".modal__close-btn");
 const editProfileForm = document.forms["profile-form"];
-const avatarModalBtn = document.querySelector(".profile__avatar-btn");
+const profileAvatarBtn = document.querySelector(".profile__avatar-btn");
 const editProfileNameInput = editProfileModal?.querySelector(
   "#profile-name-input"
 );
@@ -65,24 +65,24 @@ const editProfileDescriptionInput = editProfileModal?.querySelector(
 );
 
 const newPostModal = document.querySelector("#new-post-modal");
-const newPostCloseBtn = newPostModal?.querySelector(".modal__close-btn");
+const newPostCloseBtn = newPostModal.querySelector(".modal__close-btn");
 const newPostForm = document.forms["new-post-modal-form"];
-const newPostLinkInput = newPostModal?.querySelector("#card-image-input");
-const newPostTitleInput = newPostModal?.querySelector(
-  "#card-description-input"
-);
-const newPostSubmitBtn = newPostModal?.querySelector(".modal__submit-btn");
+const newPostLinkInput = newPostModal.querySelector("#card-image-input");
+const newPostTitleInput = newPostModal.querySelector("#card-description-input");
+// const newPostSubmitBtn = newPostModal.querySelector(".modal__submit-btn");
 
 const avatarModal = document.querySelector("#avatar-modal");
-const avatarCloseBtn = avatarModal?.querySelector(".modal__close-btn");
-const avatarForm = avatarModal?.querySelector(".modal__form"); // FIXED: correct selector
-const avatarSubmitBtn = avatarModal?.querySelector(".modal__submit-btn");
-const avatarInput = avatarModal?.querySelector("#profile-avatar-input");
+const avatarCloseBtn = avatarModal.querySelector(".modal__close-btn");
+const avatarForm = avatarModal.querySelector(".modal__form");
+// const avatarSubmitBtn = avatarModal.querySelector(".modal__submit-btn");
+const avatarInput = avatarModal.querySelector("#profile-avatar-input");
+
+const deleteModal = document.querySelector("#delete-modal");
 
 const previewModalEl = document.querySelector("#preview-modal");
-const previewImageEl = previewModalEl?.querySelector(".modal__image");
-const previewCaptionEl = previewModalEl?.querySelector(".modal__caption");
-const previewModalCloseBtn = previewModalEl?.querySelector(
+const previewImageEl = previewModalEl.querySelector(".modal__image");
+const previewCaptionEl = previewModalEl.querySelector(".modal__caption");
+const previewModalCloseBtn = previewModalEl.querySelector(
   ".modal__close-btn_type_preview"
 );
 
@@ -99,14 +99,12 @@ const api = new Api({
   },
 });
 
-// FIXED: Get both cards and user data in one call
 api
   .getAppInfo()
   .then(([cards, user]) => {
     console.log("Cards: ", cards);
     console.log("User info:", user);
 
-    // Handle cards
     cards.forEach(function (item) {
       const cardElement = getCardElement(item);
       if (cardElement) {
@@ -114,7 +112,6 @@ api
       }
     });
 
-    // Handle user data - FIXED typo in profileDescriptionEl
     profileNameEL.textContent = user.name;
     profileDescriptionEl.textContent = user.about;
     profileAvatar.src = user.avatar;
@@ -124,7 +121,6 @@ api
     console.log("Error loading app data:", err);
   });
 
-// Helper function to safely call validation functions
 const safeValidationCall = (validationFn, ...args) => {
   if (typeof validationFn === "function") {
     try {
@@ -165,26 +161,22 @@ function getCardElement(data) {
   });
 
   const cardLikeBtn = cardElement.querySelector(".card__like-btn");
-  if (cardLikeBtn) {
-    cardLikeBtn.addEventListener("click", function () {
-      cardLikeBtn.classList.toggle("card__like-btn_active");
-    });
-  }
+
+  cardLikeBtn.addEventListener("click", function () {
+    cardLikeBtn.classList.toggle("card__like-btn_active");
+  });
 
   const cardDeleteBtn = cardElement.querySelector(".card__delete-button");
-  if (cardDeleteBtn) {
-    cardDeleteBtn.addEventListener("click", function () {
-      cardElement.remove();
-    });
-  }
+
+  cardDeleteBtn.addEventListener("click", function () {
+    openModal(deleteModal);
+  });
 
   cardImageEl.addEventListener("click", function () {
-    if (previewImageEl && previewCaptionEl && previewModalEl) {
-      previewImageEl.src = data.link;
-      previewImageEl.alt = data.name;
-      previewCaptionEl.textContent = data.name;
-      openModal(previewModalEl);
-    }
+    previewImageEl.src = data.link;
+    previewImageEl.alt = data.name;
+    previewCaptionEl.textContent = data.name;
+    openModal(previewModalEl);
   });
 
   return cardElement;
@@ -263,6 +255,19 @@ function handleEditProfileFormSubmit(evt) {
     .catch(console.error);
 }
 
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  api
+    .editAvatarInfo(avatarInput.value)
+    .then((data) => {
+      if (profileAvatar) {
+        profileAvatar.src = data.value;
+        closeModal(avatarModal);
+      }
+    })
+    .catch(console.error);
+}
+
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
 
@@ -271,24 +276,12 @@ function handleNewPostSubmit(evt) {
     return;
   }
 
-  if (avatarForm) {
-    avatarForm.addEventListener("submit", handleAvatarSubmit);
-  }
+  avatarForm.addEventListener("submit", handleAvatarSubmit);
 
   if (avatarCloseBtn) {
     avatarCloseBtn.addEventListener("click", function () {
-      if (avatarModal) {
-        closeModal(avatarModal);
-      }
+      closeModal(avatarModal);
     });
-  }
-
-  function handleAvatarSubmit(evt) {
-    evt.preventDefault();
-    api
-      .editAvatarInfo(avatarInput.value)
-      .then((data) => {})
-      .catch(console.error);
   }
 
   const inputValues = {
@@ -320,65 +313,37 @@ const openNewPostModal = () => {
   }
 };
 
-if (editProfileBtn) {
-  editProfileBtn.addEventListener("click", function () {
-    handleOpenEditProfileModal();
-    if (editProfileForm) {
-      safeValidationCall(resetValidation, editProfileForm, settings);
-    }
-    openEditProfileModal();
-  });
-}
+editProfileBtn.addEventListener("click", function () {
+  handleOpenEditProfileModal();
+  safeValidationCall(resetValidation, editProfileForm, settings);
+  openEditProfileModal();
+});
 
-if (editProfileCloseBtn) {
-  editProfileCloseBtn.addEventListener("click", function () {
-    if (editProfileModal) {
-      closeModal(editProfileModal);
-    }
-  });
-}
+editProfileCloseBtn.addEventListener("click", function () {
+  closeModal(editProfileModal);
+});
 
-if (editProfileForm) {
-  editProfileForm.addEventListener("submit", handleEditProfileFormSubmit);
-}
+editProfileForm.addEventListener("submit", handleEditProfileFormSubmit);
 
-if (avatarForm) {
-  avatarForm.addEventListener("submit", handleAvatarSubmit);
-}
+newPostBtn.addEventListener("click", function () {
+  safeValidationCall(resetValidation, newPostForm, settings);
+  openNewPostModal();
+});
 
-if (newPostBtn) {
-  newPostBtn.addEventListener("click", function () {
-    if (newPostForm) {
-      safeValidationCall(resetValidation, newPostForm, settings);
-    }
-    openNewPostModal();
-  });
-}
+newPostCloseBtn.addEventListener("click", function () {
+  closeModal(newPostModal);
+});
 
-if (newPostCloseBtn) {
-  newPostCloseBtn.addEventListener("click", function () {
-    if (newPostModal) {
-      closeModal(newPostModal);
-    }
-  });
-}
+newPostForm.addEventListener("submit", handleNewPostSubmit);
 
-if (avatarModalBtn) {
-  avatarModalBtn.addEventListener("click", function () {
-    openModal(avatarModal);
-  });
-}
+previewModalCloseBtn.addEventListener("click", function () {
+  closeModal(previewModalEl);
+});
 
-if (newPostForm) {
-  newPostForm.addEventListener("submit", handleNewPostSubmit);
-}
+profileAvatarBtn.addEventListener("click", function () {
+  openModal(avatarModal);
+});
 
-if (previewModalCloseBtn) {
-  previewModalCloseBtn.addEventListener("click", function () {
-    if (previewModalEl) {
-      closeModal(previewModalEl);
-    }
-  });
-}
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 safeValidationCall(enableValidation, settings);
