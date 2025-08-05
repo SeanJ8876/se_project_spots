@@ -160,13 +160,18 @@ function getCardElement(data) {
 
   const cardDeleteBtn = cardElement.querySelector(".card__delete-button");
 
-  // REMOVED: Cancel button event listener (moved to bottom of file)
-
   cardDeleteBtn.addEventListener("click", (evt) => {
     selectedCard = cardElement;
     selectedCardId = data._id;
     openModal(deleteModal);
   });
+
+  const deleteCloseBtn = deleteModal.querySelector(".modal__close-btn");
+  if (deleteCloseBtn) {
+    deleteCloseBtn.addEventListener("click", function () {
+      closeModal(deleteModal);
+    });
+  }
 
   cardImageEl.addEventListener("click", function () {
     previewImageEl.src = data.link;
@@ -365,6 +370,7 @@ const openNewPostModal = () => {
 };
 
 // Event Listeners
+// Event Listeners
 editProfileBtn.addEventListener("click", function () {
   handleOpenEditProfileModal();
   safeValidationCall(resetValidation, editProfileForm, settings);
@@ -403,6 +409,13 @@ deleteForm.addEventListener("submit", handleDeleteSubmit);
 if (avatarCloseBtn) {
   avatarCloseBtn.addEventListener("click", function () {
     closeModal(avatarModal);
+  });
+}
+
+const deleteCloseBtn = deleteModal.querySelector(".modal__close-btn");
+if (deleteCloseBtn) {
+  deleteCloseBtn.addEventListener("click", function () {
+    closeModal(deleteModal);
   });
 }
 

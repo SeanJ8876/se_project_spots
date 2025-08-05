@@ -8,12 +8,25 @@
   height: 190px;
   width: 190px;
   border-radius: 8px;
-  margin-right: 50px;
-  margin-left: 50px;
-  margin-top: 32px;
-  margin-bottom: 32px;
   gap: 32px;
   color: rgba(255, 255, 255, 1);
+}
+
+.profile__avatar-container {
+  margin-right: 50px;
+  position: relative;
+}
+
+.profile__avatar-container:hover .profile__avatar-btn {
+  opacity: 1;
+}
+
+.profile__avatar-btn {
+  position: absolute;
+  width: 100%;
+  align-items: flex-end;
+  height: 100%;
+  opacity: 0;
 }
 
 .profile__column {
