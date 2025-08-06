@@ -18,7 +18,8 @@
 }
 
 .profile__avatar-container:hover .profile__avatar-btn {
-  opacity: 1;
+  opacity: 0.3;
+  visibility: visible;
 }
 
 .profile__avatar-btn {
@@ -147,10 +148,6 @@
     align-items: flex-end;
     justify-content: center;
     visibility: hidden;
-  }
-
-  .profile__avatar-container:hover .profile__avatar-btn {
-    visibility: visible;
   }
 
   .profile__avatar-btn::after {

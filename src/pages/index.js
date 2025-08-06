@@ -72,9 +72,6 @@ const api = new Api({
 api
   .getAppInfo()
   .then(([cards, user]) => {
-    console.log("Cards: ", cards);
-    console.log("User info:", user);
-
     cards.forEach(function (item) {
       const cardElement = getCardElement(item);
       if (cardElement) {
@@ -88,7 +85,7 @@ api
     profileAvatar.alt = user.name;
   })
   .catch((err) => {
-    console.log("Error loading app data:", err);
+    console.error("Error loading app data:", err);
   });
 
 const safeValidationCall = (validationFn, ...args) => {
@@ -142,7 +139,7 @@ function getCardElement(data) {
     const isLiked = cardLikeBtn.classList.contains("card__like-btn_active");
 
     // Set loading state for like button
-    setButtonText(cardLikeBtn, true, "♡", "Loading...");
+    //setButtonText(cardLikeBtn, true, "♡", "Loading...");
 
     api
       .changeLikeStatus(data._id, isLiked)
@@ -154,7 +151,7 @@ function getCardElement(data) {
       })
       .finally(() => {
         // Reset button state
-        setButtonText(cardLikeBtn, false, "♡");
+        //setButtonText(cardLikeBtn, false, "♡");
       });
   });
 
